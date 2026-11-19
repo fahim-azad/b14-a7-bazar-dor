@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import PriceTicker from "@/components/PriceTicker";
+import Footer from "@/components/Footer";
 import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from "react-hot-toast";
 
@@ -23,6 +24,7 @@ export default function RootLayout({
           <Navbar />
           <PriceTicker />
           <div className="flex-1">{children}</div>
+          <Footer />
         </AuthProvider>
       </body>
     </html>
