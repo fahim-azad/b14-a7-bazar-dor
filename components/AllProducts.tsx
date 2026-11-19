@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from "react";
 import { Product } from "@/lib/api";
 import ProductCard from "@/components/ProductCard";
+import SortDropdown, { SortOption } from "@/components/SortDropdown";
 import { toBengaliNumber } from "@/lib/utils";
 
 interface AllProductsProps {
@@ -24,7 +25,7 @@ const CATEGORY_TABS = [
 export default function AllProducts({ products }: AllProductsProps) {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortOption, setSortOption] = useState("default");
+  const [sortOption, setSortOption] = useState<SortOption>("default");
 
   const filteredProducts = useMemo(() => {
     let list = [...products];
@@ -55,9 +56,9 @@ export default function AllProducts({ products }: AllProductsProps) {
     }
 
     if (sortOption === "low-to-high") {
-      list.sort((a, b) => a.today - b.today);
+      list.sort((a, b) => Number(a.today) - Number(b.today));
     } else if (sortOption === "high-to-low") {
-      list.sort((a, b) => b.today - a.today);
+      list.sort((a, b) => Number(b.today) - Number(a.today));
     }
 
     return list;
@@ -97,18 +98,7 @@ export default function AllProducts({ products }: AllProductsProps) {
             )}
           </div>
 
-          <div className="flex items-center gap-1.5 bg-white border border-[#e1e8e1] rounded-xl px-3 py-1.5 text-sm">
-            <span className="text-gray-500 text-xs font-medium">সাজান:</span>
-            <select
-              value={sortOption}
-              onChange={(e) => setSortOption(e.target.value)}
-              className="bg-transparent text-sm text-[#1d271f] font-medium focus:outline-none cursor-pointer"
-            >
-              <option value="default">ডিফল্ট</option>
-              <option value="low-to-high">দাম: কম থেকে বেশি</option>
-              <option value="high-to-low">দাম: বেশি থেকে কম</option>
-            </select>
-          </div>
+          <SortDropdown value={sortOption} onChange={setSortOption} />
         </div>
       </div>
 

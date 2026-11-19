@@ -4,6 +4,7 @@ import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { Product } from "@/lib/api";
 import ProductCard from "@/components/ProductCard";
+import SortDropdown, { SortOption } from "@/components/SortDropdown";
 import { toBengaliNumber } from "@/lib/utils";
 
 interface CategoryContentProps {
@@ -18,14 +19,14 @@ export default function CategoryContent({
   categoryIcon,
   products,
 }: CategoryContentProps) {
-  const [sortOption, setSortOption] = useState("default");
+  const [sortOption, setSortOption] = useState<SortOption>("default");
 
   const sortedProducts = useMemo(() => {
     const list = [...products];
     if (sortOption === "low-to-high") {
-      list.sort((a, b) => a.today - b.today);
+      list.sort((a, b) => Number(a.today) - Number(b.today));
     } else if (sortOption === "high-to-low") {
-      list.sort((a, b) => b.today - a.today);
+      list.sort((a, b) => Number(b.today) - Number(a.today));
     }
     return list;
   }, [products, sortOption]);
@@ -82,17 +83,8 @@ export default function CategoryContent({
           মোট {toBengaliNumber(sortedProducts.length)}টি পণ্য দেখানো হচ্ছে
         </p>
 
-        <div className="flex items-center gap-2 bg-white border border-[#e1e8e1] rounded-xl px-3 py-1.5 self-start sm:self-auto text-sm">
-          <span className="text-gray-500 text-xs font-medium">সাজান:</span>
-          <select
-            value={sortOption}
-            onChange={(e) => setSortOption(e.target.value)}
-            className="bg-transparent text-sm text-[#1d271f] font-medium focus:outline-none cursor-pointer"
-          >
-            <option value="default">ডিফল্ট</option>
-            <option value="low-to-high">দাম: কম থেকে বেশি</option>
-            <option value="high-to-low">দাম: বেশি থেকে কম</option>
-          </select>
+        <div className="self-start sm:self-auto">
+          <SortDropdown value={sortOption} onChange={setSortOption} />
         </div>
       </div>
 
