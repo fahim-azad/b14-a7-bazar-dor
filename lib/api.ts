@@ -35,6 +35,12 @@ export interface Category {
   icon: string;
 }
 
+export function normalizeCategorySlug(slug: string): string {
+  if (slug === "mangso") return "mangsho";
+  if (slug === "dim-dudh") return "dim-dui";
+  return slug;
+}
+
 export async function getProducts(): Promise<Product[]> {
   try {
     const res = await fetch(`${API_BASE_URL}/products`, {
@@ -53,6 +59,36 @@ export async function getProducts(): Promise<Product[]> {
     } catch (e) {
       return [];
     }
+  }
+}
+
+export async function getProductsByCategory(categorySlug: string): Promise<Product[]> {
+  const normalized = normalizeCategorySlug(categorySlug);
+  try {
+    const res = await fetch(`${API_BASE_URL}/products?category=${normalized}`, {
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) throw new Error("Main API error");
+    const data = await res.json();
+    if (Array.isArray(data) && data.length > 0) return data;
+  } catch (err) {
+  }
+
+  try {
+    const all = await getProducts();
+    const filtered = all.filter((p) => {
+      const pCat = p.category?.toLowerCase();
+      const target = categorySlug.toLowerCase();
+      return (
+        pCat === target ||
+        pCat === normalized ||
+        (target === "mangso" && pCat === "mangsho") ||
+        (target === "dim-dudh" && (pCat === "dim-dui" || pCat === "onnanno"))
+      );
+    });
+    return filtered;
+  } catch (e) {
+    return [];
   }
 }
 
