@@ -43,3 +43,17 @@ export function getBanglaDate(): string {
 
   return `${dayName}, ${day} ${monthName}, ${year}`;
 }
+
+export function formatUnit(unit?: string, prefix = false): string {
+  if (!unit) return prefix ? "প্রতি কেজি" : "/কেজি";
+  const map: Record<string, string> = {
+    kg: "কেজি",
+    litre: "লিটার",
+    liter: "লিটার",
+    dozen: "ডজন",
+    piece: "পিস",
+  };
+  const bn = map[unit.toLowerCase()] || unit;
+  return prefix ? `প্রতি ${bn}` : `/${bn}`;
+}
+

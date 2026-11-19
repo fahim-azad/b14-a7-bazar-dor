@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import PriceTicker from "@/components/PriceTicker";
 import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from "react-hot-toast";
 
@@ -20,6 +21,7 @@ export default function RootLayout({
         <AuthProvider>
           <Toaster position="top-right" />
           <Navbar />
+          <PriceTicker />
           <div className="flex-1">{children}</div>
         </AuthProvider>
       </body>
