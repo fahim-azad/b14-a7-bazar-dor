@@ -13,6 +13,7 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "better-auth": "^1.7.26",
     "daisyui": "^4.12.10",
     "lucide-react": "^1.75.0",
     "next": "^14.2.15",
