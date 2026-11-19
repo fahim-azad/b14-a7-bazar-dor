@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import PriceRisers from "@/components/PriceRisers";
 import PriceFallers from "@/components/PriceFallers";
+import AllProducts from "@/components/AllProducts";
 import { getProducts } from "@/lib/api";
 
 export default async function Home() {
@@ -11,7 +12,7 @@ export default async function Home() {
       <Hero />
       <PriceRisers products={products} />
       <PriceFallers products={products} />
-      <div id="সব-পণ্য" className="scroll-mt-24 pt-4"></div>
+      <AllProducts products={products} />
     </main>
   );
 }
