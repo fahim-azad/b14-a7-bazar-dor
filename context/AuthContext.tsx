@@ -36,7 +36,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setUser(JSON.parse(savedUser));
       }
     } catch (e) {
-      console.error("Failed to load user session", e);
     } finally {
       setIsLoading(false);
     }

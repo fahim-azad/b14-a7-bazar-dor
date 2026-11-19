@@ -8,7 +8,6 @@ import { useAuth } from "@/context/AuthContext";
 import { getBanglaDate } from "@/lib/utils";
 import toast from "react-hot-toast";
 
-// ক্যাটাগরি তালিকা (Figma & API অনুযায়ী)
 export const CATEGORY_LIST = [
   { slug: "chal", nameBn: "চাল", icon: "🍚" },
   { slug: "sobji", nameBn: "সবজি", icon: "🥬" },
@@ -38,9 +37,7 @@ export default function Navbar() {
   return (
     <header className="w-full bg-[#fafcfa] border-b border-[#e1e8e1] sticky top-0 z-40">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        {/* Top Row: Logo & Auth Buttons */}
         <div className="flex items-center justify-between py-3">
-          {/* Logo & Bangla Date */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="relative w-10 h-10 flex-shrink-0">
               <Image
@@ -62,12 +59,10 @@ export default function Navbar() {
             </div>
           </Link>
 
-          {/* Right: Auth Controls */}
           <div className="flex items-center gap-3">
             {isLoading ? (
               <div className="w-24 h-9 bg-gray-200 animate-pulse rounded-lg"></div>
             ) : user ? (
-              /* User logged in: Profile Dropdown matching Figma */
               <div className="dropdown dropdown-end">
                 <label
                   tabIndex={0}
@@ -104,7 +99,6 @@ export default function Navbar() {
                 </ul>
               </div>
             ) : (
-              /* User not logged in: Sign In & Sign Up buttons */
               <div className="flex items-center gap-2">
                 <Link
                   href="/signin"
@@ -121,7 +115,6 @@ export default function Navbar() {
               </div>
             )}
 
-            {/* Mobile Hamburger Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="md:hidden p-2 rounded-lg text-gray-600 hover:bg-[#f0f5f0]"
@@ -153,7 +146,6 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Second Row: Category Chips (Desktop & Mobile) */}
         <nav
           className={`py-2 overflow-x-auto scrollbar-none transition-all ${
             mobileMenuOpen ? "block" : "hidden md:block"

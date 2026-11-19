@@ -1,5 +1,3 @@
-// সাধারণ বাংলা সংখ্যা ও তারিখ রূপান্তর ফাংশন (Beginner-friendly utilities)
-
 export function toBengaliNumber(num: number | string | undefined | null): string {
   if (num === undefined || num === null) return "";
   const bengaliDigits = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
@@ -56,4 +54,3 @@ export function formatUnit(unit?: string, prefix = false): string {
   const bn = map[unit.toLowerCase()] || unit;
   return prefix ? `প্রতি ${bn}` : `/${bn}`;
 }
-

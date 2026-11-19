@@ -16,7 +16,6 @@ body {
   padding: 0;
 }
 
-/* Custom marquee animation for price ticker */
 @keyframes marquee {
   0% {
     transform: translateX(0%);

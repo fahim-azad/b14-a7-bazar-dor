@@ -17,7 +17,6 @@ export default function PriceTicker() {
           setProducts(data);
         }
       } catch (err) {
-        console.error("Error loading ticker data:", err);
       } finally {
         setLoading(false);
       }
@@ -48,7 +47,6 @@ export default function PriceTicker() {
   return (
     <div className="w-full bg-[#f0f5f0] border-b border-[#e1e8e1] py-2 overflow-hidden relative group">
       <div className="flex whitespace-nowrap animate-marquee">
-        {/* First set of items */}
         <div className="flex items-center gap-4 pr-4">
           {products.map((item) => {
             const isUp = item.change?.dir === "up";
@@ -82,7 +80,6 @@ export default function PriceTicker() {
           })}
         </div>
 
-        {/* Duplicate set of items for seamless infinite looping */}
         <div className="flex items-center gap-4 pr-4" aria-hidden="true">
           {products.map((item) => {
             const isUp = item.change?.dir === "up";

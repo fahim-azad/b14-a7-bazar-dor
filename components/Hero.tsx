@@ -15,24 +15,19 @@ export default function Hero() {
   return (
     <section className="w-full bg-[#fafcfa] border border-[#e1e8e1] rounded-2xl p-6 sm:p-8 lg:p-10 my-6 shadow-xs">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        {/* Left Column: Stack matching Figma */}
         <div className="lg:col-span-8 flex flex-col items-start gap-3 sm:gap-4">
-          {/* Eyebrow: Text Block with 10% primary green fill */}
           <div className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium text-[#05893e] bg-[#05893e]/10 border border-[#05893e]/20">
             {banglaDate || "মঙ্গলবার, ৬ অক্টোবর, ২০২৬"}
           </div>
 
-          {/* Heading: 36px Bold */}
           <h1 className="text-2xl sm:text-[34px] lg:text-[36px] font-bold text-[#1d271f] leading-tight">
             আজকের বাজারের দাম এক নজরে
           </h1>
 
-          {/* Subtitle: 16px Regular */}
           <p className="text-[15px] sm:text-base font-normal text-[#1d271f]/80 leading-relaxed max-w-xl">
             চাল, ডাল, তেল, সবজি, মাছ, মাংস, ডিম ও মসলার দাম — বাজারভিত্তিক বিস্তারিত, গড়, সর্বনিম্ন-সর্বাধিক এবং দামের পরিবর্তন এক জায়গায়।
           </p>
 
-          {/* Button / Primary: 14px SemiBold */}
           <div className="pt-1">
             <Link
               href="#সব-পণ্য"
@@ -43,7 +38,6 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Right Column: bazar-hero image */}
         <div className="lg:col-span-4 flex justify-center lg:justify-end items-center">
           <div className="relative w-full max-w-[315px] flex items-center justify-center">
             <Image
