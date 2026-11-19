@@ -93,23 +93,52 @@ export async function getProductsByCategory(categorySlug: string): Promise<Produ
 }
 
 export async function getProductById(id: string | number): Promise<Product | null> {
-  try {
-    const res = await fetch(`${API_BASE_URL}/products/${id}`, {
-      next: { revalidate: 60 },
-    });
-    if (!res.ok) throw new Error("Main API error");
-    const data = await res.json();
-    return data || null;
-  } catch (err) {
+  const isNumeric = /^\d+$/.test(id.toString());
+  if (isNumeric) {
+    try {
+      const res = await fetch(`${API_BASE_URL}/products/${id}`, {
+        next: { revalidate: 60 },
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.nameBn) return data;
+      }
+    } catch (err) {
+    }
+
     try {
       const fallbackRes = await fetch(`${FALLBACK_URL}/products/${id}`, {
         next: { revalidate: 60 },
       });
-      const data = await fallbackRes.json();
-      return data || null;
+      if (fallbackRes.ok) {
+        const data = await fallbackRes.json();
+        if (data && data.nameBn) return data;
+      }
     } catch (e) {
-      return null;
     }
+  }
+
+  try {
+    const all = await getProducts();
+    const found = all.find(
+      (p) => p.id.toString() === id.toString() || p.slug === id.toString()
+    );
+    if (!found) return null;
+    if (found.markets && found.markets.length > 0) return found;
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/products/${found.id}`, {
+        next: { revalidate: 60 },
+      });
+      if (res.ok) {
+        const fullData = await res.json();
+        if (fullData) return fullData;
+      }
+    } catch (e) {}
+
+    return found;
+  } catch (err) {
+    return null;
   }
 }
 
